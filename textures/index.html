@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<title>testing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+
+<div class="w3-container">
+  <h2>W3.CSS Modal</h2>
+  <button class="w3-button w3-black" id = 'button-id'>Open Modal</button>
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <p>Some text. Some text. Some text.</p>
+        <p>Some text. Some text. Some text.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var addToCart = document.getElementById('button-id');
+    addToCart.addEventListener("click", function(e) {
+//       alert('hii testi from second liquidg');
+      
+      console.log('function working properly');
+      
+      
+     var attrs = {
+      "TemplateId": 26736087,
+      "TemplateModel": {
+        "person": {
+            "first_name": "shashi",
+            "sender_name" : "Vineet Tanwar"
+		}
+      },
+      "InlineCss": true,
+      "From": "vineet@digitizeco.in",
+      "To": "shashiy@digitizeco.in",
+//       "Cc": "copied@example.com",
+//       "Bcc": "blank-copied@example.com",
+//       "Tag": "Invitation",
+//       "ReplyTo": "reply@example.com",
+//       "Headers": [
+//         {
+//           "Name": "CUSTOM-HEADER",
+//           "Value": "value"
+//         }
+//       ],
+//       "TrackOpens": true,
+//       "TrackLinks": "None",
+//       "Attachments": [
+//         {
+//           "Name": "readme.txt",
+//           "Content": "dGVzdCBjb250ZW50",
+//           "ContentType": "text/plain"
+//         },
+//         {
+//           "Name": "report.pdf",
+//           "Content": "dGVzdCBjb250ZW50",
+//           "ContentType": "application/octet-stream"
+//         }
+//       ],
+//       "Metadata": {
+//           "color":"blue",
+//           "client-id":"12345"
+//        },
+//        "MessageStream": "outbound"
+    }
+
+      fetch('https://api.postmarkapp.com/email/withTemplate/', {
+        method: 'POST',
+        headers: new Headers({ 'Accept': 'application/json', 'X-Postmark-Server-Token': 'c930074c-8ca1-4ec8-b20e-021f214e0e4a' }),
+        body: JSON.stringify(attrs),
+      })
+        .then(res => res.json())
+        .then(function(data) {
+        	console.log('data>>>>>>>>>>>>>>', data);
+//           var threekitOrderId = data._id;
+//           addToCart(ev, threekitOrderId);
+        });
+  
+  
+  
+      
+//       console.log('window.threekit.configurator.getConfiguration()<>>>>>>>>>>>>>>>>>>', window.threekit.configurator.getConfiguration());
+//       console.log('collection<>>>>>>>>>>>>>>>>>>', collection ); 
+     
+
+  	}, false);
+  
+</script>
+            
+</body>
+</html>
