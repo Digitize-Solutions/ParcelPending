@@ -68,11 +68,17 @@
 //        },
 //        "MessageStream": "outbound"
     }
+     
+     const postData = {
+	    "recieverEmail": "shashiy@digitizeco.in",
+	    "recieverName": "Mr. Shashi the yadav from live server",
+	    "first_name": "from post api"
+	  }
 
-      fetch('https://api.postmarkapp.com/email/withTemplate/', {
+      fetch('https://postmark-server.herokuapp.com/sendEmailWithTemplate', {
         method: 'POST',
-        headers: new Headers({ 'Accept': 'application/json', 'X-Postmark-Server-Token': 'c930074c-8ca1-4ec8-b20e-021f214e0e4a' }),
-        body: JSON.stringify(attrs),
+        headers: new Headers({ 'Accept': 'application/json' }),
+        body: JSON.stringify(postData),
       })
         .then(res => res.json())
         .then(function(data) {
