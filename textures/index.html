@@ -71,13 +71,13 @@
      
      const postData = {
 	    "recieverEmail": "shashiy@digitizeco.in",
-	    "recieverName": "Mr. Shashi the yadav from live server",
+	    "recieverName": "Mr. Shashi the yadav from live server client",
 	    "first_name": "from post api"
 	  }
 
       fetch('https://postmark-server.herokuapp.com/sendEmailWithTemplate', {
         method: 'POST',
-        headers: new Headers({ 'Accept': 'application/json' }),
+        headers: new Headers({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(postData),
       })
         .then(res => res.json())
