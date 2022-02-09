@@ -62,10 +62,6 @@ const trussInitialPDFData = {
 
 function sendEmailByDigitize (type='garage', data = {}, price=100) {
     console.log('send email is clicked');
-    console.log('data>>>>>>>>>>>>>>>', data)
-    console.log('type>>>>>>>>>>>>>>>', type)
-    console.log('price>>>>>>>>>>>>>>>', price)
-
     const vatPrice = price * 0.2;
 
     const initialPDFData = type === 'garage' ? garageInitialPDFData : trussInitialPDFData
