@@ -70,9 +70,9 @@ function sendEmailByDigitize (type='garage', data = {}, price=100) {
         ...initialPDFData,
         data:{
             ...data,
-            netPrice: price,
-            vatPrice: vatPrice,
-            grossPrice: price + vatPrice
+            netPrice: (price / 100).toFixed(2),
+            vatPrice: (vatPrice / 100).toFixed(2),
+            grossPrice: ((price + vatPrice) / 100).toFixed(2)
         }
     };
 
