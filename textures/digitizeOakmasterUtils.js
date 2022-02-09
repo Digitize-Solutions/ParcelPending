@@ -60,7 +60,7 @@ const trussInitialPDFData = {
 
 
 
-function sendEmailByDigitize (type='garage', data = {}, price=100) {
+function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = '0 Kg') {
     console.log('send email is clicked');
     const vatPrice = price * 0.2;
 
@@ -83,6 +83,11 @@ function sendEmailByDigitize (type='garage', data = {}, price=100) {
             logWidth: (data["Left Log Store"] || data["Right Log Store"]) ? '1.2m' : '0m',
             garageHeight:  data["Roof Pitch"] === '35-Deg' ? '4m' : '4.84m',
             garageLength:  parseInt(data["Number Of Bays"]) * GARAGE_LENGTH_PER_BAY_FACTOR,
+        }
+    }else{
+        pdfData['data'] = {
+            ...pdfData['data'],
+            woodMass: woodMass
         }
     }
 
