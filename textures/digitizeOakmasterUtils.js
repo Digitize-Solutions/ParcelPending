@@ -68,7 +68,7 @@ function sendEmailByDigitize (type='garage', data = {}, price=100) {
 
     const vatPrice = price * 0.2;
 
-    const initialPDFData = type === 'garage' ? trussInitialPDFData : trussInitialPDFData
+    const initialPDFData = type === 'garage' ? garageInitialPDFData : trussInitialPDFData
 
     const pdfData = {
         ...initialPDFData,
