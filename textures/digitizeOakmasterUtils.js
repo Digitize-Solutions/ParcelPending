@@ -100,7 +100,7 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = '0
         const url = window.URL.createObjectURL(new Blob([data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'file.pdf');
+        link.setAttribute('download', type + '.pdf');
         document.body.appendChild(link);
         link.click();
     });
