@@ -83,7 +83,7 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = '0
             logWidth: (data["Left Log Store"] || data["Right Log Store"]) ? '1.2m' : '0m',
             garageWidth:  data["Roof Pitch"] === '40-Deg With Catslide' ? '6.8m' : '5.6m',
             garageHeight:  data["Roof Pitch"] === '35-Deg' ? '4m' : '4.84m',
-            garageLength:  parseInt(data["Number Of Bays"]) * GARAGE_LENGTH_PER_BAY_FACTOR,
+            garageLength:  ((parseInt(data["Number Of Bays"]) * GARAGE_LENGTH_PER_BAY_FACTOR) + 'm'),
         }
     }else{
         pdfData['data'] = {
