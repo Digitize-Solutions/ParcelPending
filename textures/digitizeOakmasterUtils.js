@@ -60,7 +60,7 @@ const trussInitialPDFData = {
 
 
 
-function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = '0 Kg') {
+function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0) {
     console.log('send email is clicked');
     const vatPrice = price * 0.2;
 
