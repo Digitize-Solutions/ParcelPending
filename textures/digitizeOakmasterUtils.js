@@ -40,10 +40,10 @@ const garageSampleData = {
 }
 
 
-// const BASE_API_URL = 'http://localhost:3000';
-const BASE_API_URL = 'https://postmark-server.herokuapp.com';
-const TRUSS_PDF_URL = '/api/pdf/truss';
-const GARAGE_PDF_URL = '/api/pdf/garage';
+// const BASE_API_PATH = 'http://localhost:3000';
+const BASE_API_PATH = 'https://postmark-server.herokuapp.com';
+const TRUSS_PDF_API_PATH = '/api/pdf/truss';
+const GARAGE_PDF_API_PATH = '/api/pdf/garage';
 
 const GARAGE_LENGTH_PER_BAY_FACTOR = 2.75;
 
@@ -59,13 +59,9 @@ const trussInitialPDFData = {
     }
 
 
-
-function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0) {
-    console.log('send email is clicked');
+function getPDFGenerationCompatibleData (type='garage', data = {}, price=100, woodMass = 0) {
     const vatPrice = price * 0.2;
-
     const initialPDFData = type === 'garage' ? garageInitialPDFData : trussInitialPDFData
-
     const pdfData = {
         ...initialPDFData,
         data:{
@@ -81,18 +77,26 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0)
             ...pdfData['data'],
             logLength: (data["Left Log Store"] || data["Right Log Store"]) ? '3.4m' : '0m',
             logWidth: (data["Left Log Store"] || data["Right Log Store"]) ? '1.2m' : '0m',
-            garageWidth:  data["Roof Pitch"] === '40-Deg With Catslide' ? '6.8m' : '5.6m',
             garageHeight:  data["Roof Pitch"] === '35-Deg' ? '4m' : '4.84m',
+            garageWidth:  data["Roof Pitch"] === '40-Deg With Catslide' ? '6.8m' : '5.6m',
             garageLength:  ((parseInt(data["Number Of Bays"]) * GARAGE_LENGTH_PER_BAY_FACTOR) + 'm'),
         }
     }else{
         pdfData['data'] = {
             ...pdfData['data'],
-            woodMass: woodMass + ' Kg'
+            woodMass: woodMass + 'Kg'
         }
     }
 
-    fetch(BASE_API_URL + (type === 'truss' ? TRUSS_PDF_URL : GARAGE_PDF_URL), {
+    return pdfData;
+}
+
+
+
+function getPDFByDigitize (type='garage', data = {}, price=100, woodMass = 0) {
+    const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
+
+    fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(pdfData),
@@ -105,8 +109,68 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0)
         document.body.appendChild(link);
         link.click();
     });
-          
+}
+
+function customBlobToBase64 (blob) {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise(resolve => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+    });
+  };
 
 
 
+function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0, emailData = {}) {
+    if(!emailData.name){
+        window.alert('Please provide your name');
+        return false;
+    }
+    if(!emailData.email){
+        window.alert('Please provide your email');
+        return false;
+    }
+    if(!emailData.country){
+        window.alert('Please provide your country');
+        return false;
+    }
+    const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
+
+    fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
+        method: 'POST',
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify(pdfData),
+    }).then(response => response.blob())
+    .then(function(data) {
+        customBlobToBase64(data).then(res => {
+            const attachment = [
+              {
+                "Name": type+".pdf",
+                "Content": res.replace("data:application/pdf;base64,", ""),
+                "ContentType": "application/pdf"
+              }
+            ]
+     
+            const postData = {
+               "recieverEmail": emailData.email,
+               "recieverName": "Hii " + emailData.name  +  ", the pdf for your order is attached along with this mail",
+               "first_name": emailData.name,
+               "Attachments" : attachment
+             }
+
+            fetch(BASE_API_PATH + '/sendEmailWithTemplate', {
+                  method: 'POST',
+                  headers: new Headers({ 'Content-Type': 'application/json' }),
+                  body: JSON.stringify(postData),
+                })
+                  .then(res => res.json())
+                  .then(function(data) {
+                    if(data){
+                        window.alert('Email Sent Successfully')
+                    }
+                  });
+            });
+    });
 }
