@@ -87,7 +87,7 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
     }else{
         pdfData['data'] = {
             ...pdfData['data'],
-            woodMass: woodMass + 'Kg'
+            woodMass: woodMass + ' Kg'
         }
     }
 
