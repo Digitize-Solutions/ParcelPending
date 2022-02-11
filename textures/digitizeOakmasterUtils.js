@@ -48,27 +48,30 @@ const GARAGE_PDF_API_PATH = '/api/pdf/garage';
 const GARAGE_LENGTH_PER_BAY_FACTOR = 2.75;
 
 const trussInitialPDFData = {
-    "sampleImage": "https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/truss-image.jpg",
-    "oakmasterLogo":'https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/oakmaster-logo.png',
+    "sampleImage": "https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/truss-new.png",
+    "oakmasterLogo":'https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/oakmaster-new-logo.jpg',
     data: {}
   }
   const garageInitialPDFData = {
-      "sampleImage": "https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/oakmasters-icon.jpg",
-      "oakmasterLogo":'https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/oakmaster-logo.png',
+      "sampleImage": "https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/garage-new.png",
+      "oakmasterLogo":'https://raw.githubusercontent.com/theVineetTanwar/theVineetTanwar/main/oakmaster-new-logo.jpg',
       data: {}
     }
 
+const getFormattedCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {style: 'currency',  currency: 'GBP',}).format(amount);
+}
 
-function getPDFGenerationCompatibleData (type='garage', data = {}, price=100, woodMass = 0) {
+function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000, woodMass = 0) {
     const vatPrice = price * 0.2;
     const initialPDFData = type === 'garage' ? garageInitialPDFData : trussInitialPDFData
     const pdfData = {
         ...initialPDFData,
         data:{
             ...data,
-            netPrice: (price / 100).toFixed(2),
-            vatPrice: (vatPrice / 100).toFixed(2),
-            grossPrice: ((price + vatPrice) / 100).toFixed(2)
+            netPrice: getFormattedCurrency((price / 100).toFixed(2)),
+            vatPrice: getFormattedCurrency((vatPrice / 100).toFixed(2)),
+            grossPrice: getFormattedCurrency(((price + vatPrice) / 100).toFixed(2))
         }
     };
 
@@ -93,7 +96,7 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100, wo
 
 
 
-function getPDFByDigitize (type='garage', data = {}, price=100, woodMass = 0) {
+function getPDFByDigitize (type='garage', data = garageSampleData, price=100000, woodMass = 0) {
     const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
 
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
