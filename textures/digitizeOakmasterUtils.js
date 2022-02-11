@@ -78,8 +78,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
     if(type === 'garage'){
         pdfData['data'] = {
             ...pdfData['data'],
-            logLength: (data["Left Log Store"] || data["Right Log Store"]) ? '3.4m' : '0m',
-            logWidth: (data["Left Log Store"] || data["Right Log Store"]) ? '1.2m' : '0m',
+            logLength: (data["Left Log Store"] || data["Right Log Store"]) ? '3.4m' : null,
+            logWidth: (data["Left Log Store"] || data["Right Log Store"]) ? '1.2m' : null,
             garageHeight:  data["Roof Pitch"] === '35-Deg' ? '4m' : '4.84m',
             garageWidth:  data["Roof Pitch"] === '40-Deg With Catslide' ? '6.8m' : '5.6m',
             garageLength:  ((parseInt(data["Number Of Bays"]) * GARAGE_LENGTH_PER_BAY_FACTOR) + 'm'),
