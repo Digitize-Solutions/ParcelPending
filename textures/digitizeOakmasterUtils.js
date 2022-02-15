@@ -40,9 +40,6 @@ const garageSampleData = {
 }
 
 
-if(!api){
-  api = threekit.api;
-}
 // const BASE_API_PATH = 'http://localhost:3000';
 const BASE_API_PATH = 'https://postmark-server.herokuapp.com';
 const TRUSS_PDF_API_PATH = '/api/pdf/truss';
@@ -63,6 +60,21 @@ const trussInitialPDFData = {
 
 const getFormattedCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {style: 'currency',  currency: 'GBP',}).format(amount);
+}
+function declared(variable) {
+  let declared = true;
+  try {
+    eval(variable);
+  } catch (e) {
+    if (e.name === "ReferenceError") {
+      declared = false;
+    }
+  }
+  return declared;
+}
+
+if(!declared("api")){
+  const api = threekit.api;
 }
 
 function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000, woodMass = 0) {
