@@ -173,7 +173,6 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0,
      
             const postData = {
                "recieverEmail": emailData.email,
-               "recieverName": "Hii " + emailData.name  +  ", the pdf for your order is attached along with this mail",
                "first_name": emailData.name,
                "Attachments" : attachment
              }
