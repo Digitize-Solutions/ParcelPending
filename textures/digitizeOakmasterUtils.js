@@ -61,21 +61,21 @@ const trussInitialPDFData = {
 const getFormattedCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {style: 'currency',  currency: 'GBP',}).format(amount);
 }
-function declared(variable) {
-  let declared = true;
-  try {
-    eval(variable);
-  } catch (e) {
-    if (e.name === "ReferenceError") {
-      declared = false;
-    }
-  }
-  return declared;
-}
+// function declared(variable) {
+//   let declared = true;
+//   try {
+//     eval(variable);
+//   } catch (e) {
+//     if (e.name === "ReferenceError") {
+//       declared = false;
+//     }
+//   }
+//   return declared;
+// }
 
-if(!declared("api")){
-  const api = threekit.api;
-}
+// if(!declared("api")){
+//   const api = threekit.api;
+// }
 
 function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000, woodMass = 0) {
     const vatPrice = price * 0.2;
