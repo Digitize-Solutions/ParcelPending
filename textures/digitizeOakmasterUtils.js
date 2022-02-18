@@ -103,8 +103,14 @@ function getPDFByDigitize (type='garage', data = garageSampleData, price=100000,
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(pdfData),
-    }).then(response => response.blob())
-    .then(function(data) {
+    }).then(async(response) => {
+        if (response.ok) {
+            return response.blob();
+        } else {
+            window.alert('Could not get PDF, Please try again')
+            throw new Error('Something went wrong');
+        }
+    }).then(function(data) {
         const url = window.URL.createObjectURL(new Blob([data]));
         const link = document.createElement('a');
         link.href = url;
