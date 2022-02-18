@@ -61,21 +61,6 @@ const trussInitialPDFData = {
 const getFormattedCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {style: 'currency',  currency: 'GBP',}).format(amount);
 }
-// function declared(variable) {
-//   let declared = true;
-//   try {
-//     eval(variable);
-//   } catch (e) {
-//     if (e.name === "ReferenceError") {
-//       declared = false;
-//     }
-//   }
-//   return declared;
-// }
-
-// if(!declared("api")){
-//   const api = threekit.api;
-// }
 
 function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000, woodMass = 0) {
     const vatPrice = price * 0.2;
@@ -184,8 +169,10 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0,
                 })
                   .then(res => res.json())
                   .then(function(data) {
-                    if(data){
+                    if(data?.status){
                         window.alert('Email Sent Successfully')
+                    }else{
+                        window.alert('Unable to send email. Please check email and try again')
                     }
                   });
             });
