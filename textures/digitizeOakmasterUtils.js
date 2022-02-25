@@ -134,6 +134,13 @@ function customBlobToBase64 (blob) {
 
 
 function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0, emailData = {}) {
+    
+                        if(document.getElementById('digitize-user-email').value){
+                            document.getElementById('digitize-user-email').value = "";
+                            document.getElementById('digitize-user-name').value = "";
+                            document.getElementById('digitize-user-country').value = "";
+                            return false;
+                        }
     if(!emailData.name){
         window.alert('Please provide your name');
         return false;
