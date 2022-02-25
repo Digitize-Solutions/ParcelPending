@@ -134,16 +134,6 @@ function customBlobToBase64 (blob) {
 
 
 function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0, emailData = {}) {
-    
-                        if(document.getElementById('digitize-user-email').value){
-                            document.getElementById('digitize-user-email').value = "";
-                            document.getElementById('digitize-user-name').value = "";
-                            document.getElementById('digitize-user-country').value = "";
-                            return false;
-                        }else{
-                            window.alert('value not found');
-                            return false;
-                        }
     if(!emailData.name){
         window.alert('Please provide your name');
         return false;
@@ -187,6 +177,11 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0,
                   .then(res => res.json())
                   .then(function(data) {
                     if(data?.status){
+                        if(document.getElementById('digitize-user-email').value){
+                            document.getElementById('digitize-user-email').value = "";
+                            document.getElementById('digitize-user-name').value = "";
+                            document.getElementById('digitize-user-country').value = "";
+                        }
                         window.alert('Email Sent Successfully')
                     }else{
                         window.alert('Unable to send email. Please check email and try again')
