@@ -140,6 +140,9 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0,
                             document.getElementById('digitize-user-name').value = "";
                             document.getElementById('digitize-user-country').value = "";
                             return false;
+                        }else{
+                            window.alert('value not found');
+                            return false;
                         }
     if(!emailData.name){
         window.alert('Please provide your name');
