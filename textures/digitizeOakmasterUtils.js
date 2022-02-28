@@ -118,8 +118,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
 
     
     
-    return pdfData;
-//     return form_data;
+//     return pdfData;
+    return form_data;
 }
 
 
