@@ -101,7 +101,7 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
     
     if(threekit){
         threekit.api.commands.setCommandOptions('snapshot', {
-            // dataType: dataType,
+            dataType: 'dataURL',
             // camera: camera,
             width: 800,
             height: 500,
