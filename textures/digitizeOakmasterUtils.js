@@ -118,7 +118,7 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
 //             resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
 //             form_data.append('streamfile', file)
             
-            pdfData['sampleImage'] = result;
+//             pdfData['sampleImage'] = result;
         }
         console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
 
