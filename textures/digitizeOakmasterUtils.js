@@ -109,10 +109,13 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
         var result = threekit.api.commands.runCommand('snapshot');
         console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
         if (result) {
+            console.log('inside result>>>>>>>>>>>>>>>>>>>');
+            const file = new File([result], 'thumbnail.png')
 //             var resultImage = document.getElementById('resultImage');
 //             resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
-            form_data.append('file', result)
+            form_data.append('file', file)
         }
+        console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
 
     }
 
