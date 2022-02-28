@@ -97,6 +97,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
         form_data.append(key, pdfData[key]);
     }
     
+    console.log('form_data>>>>>>>>>>>>>>>>>>>>', form_data)
+    
     if(threekit){
         threekit.api.commands.setCommandOptions('snapshot', {
             // dataType: dataType,
