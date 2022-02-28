@@ -96,7 +96,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
     for ( var key in pdfData ) {
         form_data.append(key, pdfData[key]);
     }
-    
+        
+    console.log('pdfData>>>>>>>>>>>>>>>>>>>>', pdfData)
     console.log('form_data>>>>>>>>>>>>>>>>>>>>', form_data)
     
     if(threekit){
