@@ -103,8 +103,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
     
     if(threekit){
         threekit.api.commands.setCommandOptions('snapshot', {
-//             dataType: 'dataURL',
-            dataType: 'blob',
+            dataType: 'dataURL',
+//             dataType: 'blob',
             // camera: camera,
             width: 800,
             height: 500,
@@ -112,24 +112,26 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
         var result = threekit.api.commands.runCommand('snapshot');
         console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
         if (result) {
-            console.log('inside result>>>>>>>>>>>>>>>>>>>');
-            const file = new File([result], 'thumbnail.png')
+//             console.log('inside result>>>>>>>>>>>>>>>>>>>');
+//             const file = new File([result], 'thumbnail.png')
 //             var resultImage = document.getElementById('resultImage');
 //             resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
-            form_data.append('file', file)
+//             form_data.append('streamfile', file)
+            
+            pdfData['sampleImage'] = result;
         }
         console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
 
     }
-    for (let [key, value] of form_data) {
-      console.log(`formdata>>>>>>>>>>>>>>>>>>${key}: ${value}`)
-    }
+//     for (let [key, value] of form_data) {
+//       console.log(`formdata>>>>>>>>>>>>>>>>>>${key}: ${value}`)
+//     }
 
 
     
     
-//     return pdfData;
-    return form_data;
+    return pdfData;
+//     return form_data;
 }
 
 
@@ -140,8 +142,8 @@ function getPDFByDigitize (type='garage', data = garageSampleData, price=100000,
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
-//         body: pdfData,
-        body: JSON.stringify(pdfData),
+        body: pdfData,
+//         body: JSON.stringify(pdfData),
     }).then(async(response) => {
         if (response.ok) {
             return response.blob();
