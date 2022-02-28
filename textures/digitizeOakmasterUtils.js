@@ -138,6 +138,8 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
 
 function getPDFByDigitize (type='garage', data = garageSampleData, price=100000, woodMass = 0) {
     const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
+    
+    console.log('data to be sent>>>>>>>>>>pdfData', pdfData);
 
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
