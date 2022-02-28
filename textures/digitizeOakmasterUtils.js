@@ -92,7 +92,27 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
         }
     }
 
-    return pdfData;
+    var form_data = new FormData();
+    for ( var key in pdfData ) {
+        form_data.append(key, item[key]);
+    }
+
+    threekit.api.commands.setCommandOptions('snapshot', {
+        // dataType: dataType,
+        // camera: camera,
+        width: 800,
+        height: 500,
+      });
+    var result = threekit.api.commands.runCommand('snapshot');
+    if (result) {
+        var resultImage = document.getElementById('resultImage');
+        resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
+    }
+
+    form_data.append(file, result)
+    
+    // return pdfData;
+    return form_data;
 }
 
 
