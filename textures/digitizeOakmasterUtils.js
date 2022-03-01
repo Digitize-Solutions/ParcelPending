@@ -118,7 +118,7 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
 //             resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
 //             form_data.append('streamfile', file)
             
-//             pdfData['sampleImage'] = result;
+            pdfData['sampleImage'] = result;
         }
         console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
 
@@ -144,8 +144,8 @@ function getPDFByDigitize (type='garage', data = garageSampleData, price=100000,
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: pdfData,
-//         body: JSON.stringify(pdfData),
+//         body: pdfData,
+        body: JSON.stringify(pdfData),
     }).then(async(response) => {
         if (response.ok) {
             return response.blob();
