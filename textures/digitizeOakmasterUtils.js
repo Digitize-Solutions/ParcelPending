@@ -91,15 +91,6 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
             woodMass: woodMass + ' Kg'
         }
     }
-
-    var form_data = new FormData();
-    for ( let key in pdfData ) {
-        console.log('key>>>>>>>>>>>>>>>>>>', key, '<<<<<<<<<<data>>>>>>>>', pdfData[key]);
-        form_data.append(key, pdfData[key]);
-    }
-        
-    console.log('pdfData>>>>>>>>>>>>>>>>>>>>', pdfData)
-    console.log('form_data>>>>>>>>>>>>>>>>>>>>', form_data)
     
     if(threekit){
         threekit.api.commands.setCommandOptions('snapshot', {
@@ -110,42 +101,30 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
             height: 500,
           });
         var result = threekit.api.commands.runCommand('snapshot');
-        console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
         if (result) {
-//             console.log('inside result>>>>>>>>>>>>>>>>>>>');
-//             const file = new File([result], 'thumbnail.png')
-//             var resultImage = document.getElementById('resultImage');
-//             resultImage.src = dataType === 'dataURL' ? result : URL.createObjectURL(result);
-//             form_data.append('streamfile', file)
-            
             pdfData['sampleImage'] = result;
         }
-        console.log('result.>>>>>>>>>>>>>>>>>>>>>', result);
 
     }
-//     for (let [key, value] of form_data) {
-//       console.log(`formdata>>>>>>>>>>>>>>>>>>${key}: ${value}`)
-//     }
-
-
-    
-    
     return pdfData;
-//     return form_data;
 }
 
 
 
 function getPDFByDigitize (type='garage', data = garageSampleData, price=100000, woodMass = 0) {
+    if(!threekit?.api?.commands){
+        window.alert("Please wait untill the product loads")
+        return false;
+    }
+
+
     const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
-    
-    console.log('data to be sent>>>>>>>>>>pdfData', pdfData);
 
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
-//         body: pdfData,
-        body: JSON.stringify(pdfData),
+        body: pdfData,
+//         body: JSON.stringify(pdfData),
     }).then(async(response) => {
         if (response.ok) {
             return response.blob();
@@ -176,6 +155,10 @@ function customBlobToBase64 (blob) {
 
 
 function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0, emailData = {}) {
+    if(!threekit?.api?.commands){
+        window.alert("Please wait untill the product loads")
+        return false;
+    }
     if(!emailData.name){
         window.alert('Please provide your name');
         return false;
