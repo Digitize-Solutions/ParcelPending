@@ -123,8 +123,8 @@ function getPDFByDigitize (type='garage', data = garageSampleData, price=100000,
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: pdfData,
-//         body: JSON.stringify(pdfData),
+//         body: pdfData,
+        body: JSON.stringify(pdfData),
     }).then(async(response) => {
         if (response.ok) {
             return response.blob();
