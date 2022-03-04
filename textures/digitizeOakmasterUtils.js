@@ -98,13 +98,12 @@ function getPDFGenerationCompatibleData (type='garage', data = {}, price=100000,
 //             dataType: 'blob',
             // camera: camera,
             camera: 'Camera_Snapshot',
-            width: 800,
+            width: 900,
             height: 500,
           });
         var result = threekit.api.commands.runCommand('snapshot');
         if (result) {
             pdfData['sampleImage'] = result;
-            console.log('result>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', result)
         }
 
     }
