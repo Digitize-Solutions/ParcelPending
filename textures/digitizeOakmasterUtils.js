@@ -168,10 +168,10 @@ function sendEmailByDigitize (type='garage', data = {}, price=100, woodMass = 0,
         window.alert('Please provide your email');
         return false;
     }
-    if(!emailData.country){
-        window.alert('Please provide your country');
-        return false;
-    }
+//     if(!emailData.country){
+//         window.alert('Please provide your country');
+//         return false;
+//     }
     const pdfData = getPDFGenerationCompatibleData(type, data, price, woodMass);
 
     fetch(BASE_API_PATH + (type === 'truss' ? TRUSS_PDF_API_PATH : GARAGE_PDF_API_PATH), {
