@@ -41,8 +41,8 @@ const garageSampleData = {
 
 
 // const BASE_API_PATH = 'http://localhost:3000';
-const BASE_API_PATH = 'https://postmark-server.herokuapp.com';
-// const BASE_API_PATH = 'https://oakmaster-proxy.3kit.com';
+// const BASE_API_PATH = 'https://postmark-server.herokuapp.com';
+const BASE_API_PATH = 'https://oakmaster-proxy.3kit.com';
 const TRUSS_PDF_API_PATH = '/api/pdf/truss';
 const GARAGE_PDF_API_PATH = '/api/pdf/garage';
 
